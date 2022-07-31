@@ -8,6 +8,7 @@ using System.Globalization;
 using System.Text.Json.Serialization;
 using Newtonsoft.Json;
 using System.Net;
+using System.Reflection;
 
 namespace WeatherApp
 {
@@ -22,11 +23,7 @@ namespace WeatherApp
             Console.WriteLine("Podaj nazwę miasta: ");
 
             string input = Console.ReadLine();
-            var firstLetter = input.Substring(0, 1);
-            firstLetter = firstLetter.ToUpper();
-            var otherLetters = input.Substring(1);
-            otherLetters = otherLetters.ToLower();
-            string matchingInput = firstLetter + otherLetters;
+            string matchingInput = InputFormatter.CapitaliseFirstLetter(input);
 
             try
             {
