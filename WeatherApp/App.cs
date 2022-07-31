@@ -19,6 +19,15 @@ namespace WeatherApp
 
             HttpClient httpClient = new HttpClient();
 
+            Console.WriteLine("Podaj nazwę miasta: ");
+
+            string input = Console.ReadLine();
+            var firstLetter = input.Substring(0, 1);
+            firstLetter = firstLetter.ToUpper();
+            var otherLetters = input.Substring(1);
+            otherLetters = otherLetters.ToLower();
+            string matchingInput = firstLetter + otherLetters;
+
             try
             {
                 var httpResponseMessage = await httpClient.GetAsync(url);
@@ -30,12 +39,26 @@ namespace WeatherApp
 
                 var myData = JsonConvert.DeserializeObject<Data[]>(jsonResponse);
 
-                //var result = myData.FirstOrDefault(x => x.stacja == input);
+                var result = myData.FirstOrDefault(x => x.stacja == matchingInput);
 
-                foreach (var item in myData)
+                if (result != null)
                 {
-                    Console.WriteLine($"{item.stacja} {item.temperatura}");
+                    Console.WriteLine($"Stacja: {result.stacja}, " +
+                        $"temperatura: {result.temperatura}, " +
+                        $"ciśnienie: {result.cisnienie}, " +
+                        $"wilgotność: {result.wilgotnosc_wzgledna}, " +
+                        $"data pomiaru: {result.data_pomiaru}, " +
+                        $"godzina pomiaru: {result.godzina_pomiaru}");
                 }
+                else
+                {
+                    Console.WriteLine("Ogółem... nie ma takiego miasta");
+                }
+
+                //foreach (var item in myData)
+                //{
+                //    Console.WriteLine($"{item.stacja} {item.temperatura}");
+                //}
             }
             catch (Exception e)
             {
