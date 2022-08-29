@@ -20,7 +20,7 @@ namespace WeatherApp
 
             HttpClient httpClient = new HttpClient();
 
-            Console.WriteLine("Podaj nazwę miasta: ");
+            Console.WriteLine("Podaj nazwę miasta, w którym chcesz sprawdzić dane pogodowe");
 
             string input = Console.ReadLine();
             string matchingInput = InputFormatter.CapitaliseFirstLetter(input);
@@ -49,7 +49,7 @@ namespace WeatherApp
                 }
                 else
                 {
-                    Console.WriteLine("Ogółem... nie ma takiego miasta");
+                    Console.WriteLine("Nie ma takiego miasta lub nie jest obsługiwane");
                 }
 
                 //foreach (var item in myData)
